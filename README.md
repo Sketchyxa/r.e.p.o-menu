@@ -66,3 +66,4 @@ build.bat
 
 ## License
 MIT
+![Menu](photo_2026-11-27_14-52-57.jpg)

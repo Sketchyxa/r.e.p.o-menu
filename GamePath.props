@@ -1,0 +1,8 @@
+<Project>
+  <!-- Необязательный ручной override. Обычно НЕ нужен: build.bat сам находит игру и создаёт GamePath.local.props.
+       Optional manual override. Usually NOT needed: build.bat auto-detects the game and writes GamePath.local.props.
+  <PropertyGroup>
+    <GamePath>D:\Games\Steam\steamapps\common\REPO</GamePath>
+  </PropertyGroup>
+  -->
+</Project>

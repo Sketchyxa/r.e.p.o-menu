@@ -1,0 +1,13 @@
+bin/
+obj/
+dist/
+.vs/
+*.user
+GamePath.local.props
+*.cfg
+# game / third-party binaries – never commit
+*.dll
+*.exe
+!libs/.gitkeep
+SharpMonoInjector.Console/
+smi.exe

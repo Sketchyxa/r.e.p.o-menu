@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Путь к игре определяется автоматически:
+       1) -p:GamePath="D:\Games\REPO" или переменная окружения REPO_PATH
+       2) GamePath.local.props (создаёт find_game.ps1 / build.bat)
+       3) GamePath.props (ручной вариант)
+       4) стандартный путь Steam -->
+  <Import Project="GamePath.local.props" Condition="Exists('GamePath.local.props')" />
+  <Import Project="GamePath.props" Condition="Exists('GamePath.props')" />
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>x64</Platforms>
+    <Platform>x64</Platform>
+    <AssemblyName>REPOMenu</AssemblyName>
+    <RootNamespace>r.e.p.o_cheat</RootNamespace>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <DebugType>none</DebugType>
+    <NoWarn>$(NoWarn);CS0618;CS0162</NoWarn>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <GamePath Condition="'$(GamePath)' == '' and '$(REPO_PATH)' != ''">$(REPO_PATH)</GamePath>
+    <GamePath Condition="'$(GamePath)' == ''">$(MSBuildProgramFiles32)\Steam\steamapps\common\REPO</GamePath>
+    <Managed>$(GamePath)\REPO_Data\Managed</Managed>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Loader\**" />
+    <None Remove="Loader\**" />
+    <EmbeddedResource Remove="Loader\**" />
+    <Compile Remove="dist\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Assembly-CSharp не подключаем: игровые типы берутся по имени через рефлексию (см. Refl.cs) -->
+    <Reference Include="UnityEngine"><HintPath>$(Managed)\UnityEngine.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(Managed)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.IMGUIModule"><HintPath>$(Managed)\UnityEngine.IMGUIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.TextRenderingModule"><HintPath>$(Managed)\UnityEngine.TextRenderingModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.AIModule"><HintPath>$(Managed)\UnityEngine.AIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.PhysicsModule"><HintPath>$(Managed)\UnityEngine.PhysicsModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="PhotonUnityNetworking"><HintPath>$(Managed)\PhotonUnityNetworking.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="PhotonRealtime"><HintPath>$(Managed)\PhotonRealtime.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <Target Name="CheckGamePath" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(GamePath)\REPO.exe')" Text="R.E.P.O. not found at '$(GamePath)'. Run build.bat (or find_game.ps1), or pass -p:GamePath=&quot;path\to\REPO&quot;." />
+  </Target>
+
+</Project>

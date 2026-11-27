@@ -2,6 +2,13 @@
 
 **English** · [Русский](#русский)
 
+
+
+![Menu](photo_2026-11-27_14-52-57.jpg)
+
+
+
+
 Modern in-game menu (rounded UI, animated toggles/sliders, sidebar tabs, tooltips) plus a one-click WinForms loader.
 
 ## Features
@@ -66,4 +73,4 @@ build.bat
 
 ## License
 MIT
-![Menu](photo_2026-11-27_14-52-57.jpg)
+
